@@ -1,0 +1,29 @@
+<div #taskFileUploadParentContainer>
+    <mat-card  class ='uploadZone' >
+        <mat-card-header>
+            <mat-card-title>{{taskTitle}}</mat-card-title>
+            <mat-card-subtitle>{{taskSubTitle}}</mat-card-subtitle>
+        </mat-card-header>    
+        <mat-card-content >
+            <div #taskParentElement fxLayout="row" fxLayoutAlign="center center" >
+                    <input type="file" #taskFileInput style="display: none;">            
+                    <div id="task-file-upload-dropzone" fxLayout="row" fxLayoutAlign="center none"   >
+                        <div >{{initialMessage}}</div>
+                        <div><mat-icon>cloud_upload</mat-icon></div>
+                    </div>
+            </div>
+            <div fxFill fxLayout="column"> 
+                <div  fxFill fxLayout="column" *ngFor = 'let fileUpload of fileUploadObservable$ | async' >
+                        <p>{{fileUpload.file.name}} {{fileUpload.progress.formattedValue}}</p>             
+                        <mat-progress-bar class="app-progress" aria-label ='' mode="determinate" value="{{fileUpload.progress.percent}}"></mat-progress-bar>
+                        <div *ngIf = 'fileUpload.error' class="error">{{fileUpload.error.message}}</div>
+                        <p *ngIf = '!fileUpload.error'>{{fileUpload.response.body}}</p>
+                    <br>
+                        <mat-divider></mat-divider>
+
+                    </div>
+            </div>    
+        </mat-card-content>
+
+    </mat-card>
+</div>
