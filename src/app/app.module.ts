@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {CoreTaskModule} from '@task/core-task';
+import {CoreTaskModule} from 'core-task';
 
 
 
