@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { IConfiguration } from 'core-task/task-core-task';
 
-import { TaskFileUpload} from '@task/core-task';
+import { TaskFileUpload} from 'core-task';
 
 
 
