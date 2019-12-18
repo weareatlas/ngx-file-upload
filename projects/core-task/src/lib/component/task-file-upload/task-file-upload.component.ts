@@ -1,14 +1,9 @@
-import { Component, OnInit, Input, Output, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, AfterViewInit, ViewChild, ElementRef, OnDestroy, EventEmitter } from '@angular/core';
 import { ConfigurationReaderService } from './service/cofiguration-reader.service';
 import { IConfiguration } from './model/configuration-type';
-import { ConfigurationError, DisallowedContentTypeError,
-   FileSizeLimitExceededError, MaximumFileCountExceededError } from './model/error';
-
-import { Subject, Subscription, fromEvent, Observable } from 'rxjs';
-
+import { Subject, fromEvent, Observable } from 'rxjs';
 import {TaskFileUpload } from './task-file-upload';
-import { HttpClient, HttpEventType } from '@angular/common/http';
-import { tap, map, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { ProgressState } from './model/progress-state';
 import { TaskFileUploadService } from './service/task-file-upload.service';
 
@@ -21,10 +16,17 @@ import { TaskFileUploadService } from './service/task-file-upload.service';
 })
 export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
+
    @Input() configuration: IConfiguration;
    @Input() public initialMessage: string;
    @Input() public taskTitle: string;
    @Input() public taskSubTitle: string;
+
+   @Output() uploaded: EventEmitter<TaskFileUpload> = new EventEmitter<TaskFileUpload>();
+   @Output() deleted: EventEmitter<any> = new EventEmitter<any>();
+   @Output() error: EventEmitter<any> = new EventEmitter<any>();
+
+
 
 
    private isConfigurationValid = false;
@@ -33,8 +35,8 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
    private fileUploadSubject = new Subject<TaskFileUpload[]>();
    public fileUploadObservable$ = this.fileUploadSubject.asObservable();
 
-   private error = new Subject<Error>();
-   public error$ = this.error.asObservable();
+  //  private error = new Subject<Error>();
+  //  public error$ = this.error.asObservable();
 
 
    @ViewChild('taskFileInput' , {static: true}) taskFileInput: ElementRef;
@@ -50,8 +52,6 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
    private unsubscribe$: Subject<void> = new Subject();
 
 
-
-   public fileUploads: TaskFileUpload[];
   constructor(private configurationReaderService: ConfigurationReaderService, private taskFileUploadService: TaskFileUploadService) {
 
    }
@@ -59,33 +59,26 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
   ngOnInit() {
   }
 
+   delete(response: any) {
+    this.deleted.emit(JSON.parse(response.body));
+
+  }
   private start() {
 
-    this.parseConfiguration();
+      this.parseConfiguration();
 
+      this.fileUploadObservable$.subscribe ( (data) => {
+        data.forEach((fileUpload) =>  {
 
+            this.taskFileUploadService.upload(fileUpload).subscribe( (d) => {
 
-    this.fileUploadObservable$.subscribe ( (data) => {
-      data.forEach((fileUpload) =>  {
+              if (fileUpload.progress.state === ProgressState.Completed) {
+                this.uploaded.emit(fileUpload);
+              }
 
-
-        // if (!fileUpload.parseError) {
-          this.taskFileUploadService.upload(fileUpload).subscribe( (d) => {
-              console.log(d);
-
-            });
-        // }
-         // this.fileUploads = data;
-
-
-       });
-
-
-    //   this.taskFIleUploadService.error$.subscribe ( (s) => {
-    //     console.error(s);
-    // });
-
- });
+              });
+          });
+      });
   }
 
   ngAfterViewInit(): void {
@@ -103,10 +96,8 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
           this.configurationReaderService.Read().subscribe( this.parseConfigurationObserver());
 
         } catch (error) {
-          // this.error.next(error);
+          this.error.emit(error);
         }
-
-
   }
 
 
@@ -114,18 +105,17 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
     private parseConfigurationObserver() {
           return {
               next: configuration =>  {
-                  console.log(configuration);
                   this.isConfigurationValid = true;
                   this.registerFileSources();
                   this.subscribeToFileSources();
               },
               error: error => {
                   this.isConfigurationValid = false;
-                  console.error(error);
-                  // this.error.next(error);
-              },
-              complete: () => console.log('Configuration reader complete.')
-          };
+                  // console.error(error);
+                  this.error.emit(error);
+              }
+              // complete: () => console.log('Configuration reader complete.') 
+            };
     }
 
     // Register file source
@@ -167,7 +157,6 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe( (event) => {
 
-        console.log(event);
         this.taskFileUploadService.createFileUploadAsync(event.target.files).subscribe( (fileUpload: TaskFileUpload[]) => {
           this.deRegisterFileSources();
           this.fileUploadSubject.next(fileUpload);
@@ -218,11 +207,6 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
 
     }
 
-      // DeRegister file sources
-    private deRegisterFileSources(): void {
-        this.unsubscribe$.next();
-        this.unsubscribe$.complete();
-    }
 
 
 
@@ -242,6 +226,13 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
 
   ngOnDestroy(): void {
       this.deRegisterFileSources();
+  }
+
+
+  // DeRegister file sources
+  private deRegisterFileSources(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 }

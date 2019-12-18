@@ -2,7 +2,11 @@
     [taskTitle] = 'taskTitle'
     [taskSubTitle] = 'taskSubTitle'
     [configuration] ='getconfiguration()'
-    [initialMessage] ='initialMessage' >
+    [initialMessage] ='initialMessage'
+    (uploaded) ='fileUploaded($event)' 
+    (deleted) ='fileDeleted($event)'
+    (error) = 'error()'
+    >
 </task-file-upload>
 
 <router-outlet></router-outlet>

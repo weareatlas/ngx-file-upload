@@ -3,7 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { TaskFileUpload } from '../task-file-upload';
 import { ProgressState } from '../model/progress-state';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, map, switchMap } from 'rxjs/operators';
 import { ConfigurationReaderService } from './cofiguration-reader.service';
 import { FileSizeLimitExceededError, DisallowedContentTypeError, MaximumFileCountExceededError } from '../model/error';
 

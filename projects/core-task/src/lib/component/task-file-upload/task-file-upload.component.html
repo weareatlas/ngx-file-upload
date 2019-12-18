@@ -14,13 +14,22 @@
             </div>
             <div fxFill fxLayout="column"> 
                 <div  fxFill fxLayout="column" *ngFor = 'let fileUpload of fileUploadObservable$ | async' >
+
+                    <div fxFill fxLayout="row"  *ngIf="fileUpload.progress.state === 3 ">
+                        <div fxFlex="30"><a href="" target="_blank">{{fileUpload.file.name}}</a></div>
+                        <button  mat-button (click) = 'delete(fileUpload.response)'>
+                            <mat-icon >delete</mat-icon>
+                        </button>
+                    </div>
+
+                    <div *ngIf="fileUpload.progress.state === 2 || fileUpload.progress.state === 4">
                         <p>{{fileUpload.file.name}} {{fileUpload.progress.formattedValue}}</p>             
                         <mat-progress-bar class="app-progress" aria-label ='' mode="determinate" value="{{fileUpload.progress.percent}}"></mat-progress-bar>
                         <div *ngIf = 'fileUpload.error' class="error">{{fileUpload.error.message}}</div>
                         <p *ngIf = '!fileUpload.error'>{{fileUpload.response.body}}</p>
+                    </div>
                     <br>
-                        <mat-divider></mat-divider>
-
+                    <mat-divider></mat-divider>
                     </div>
             </div>    
         </mat-card-content>
