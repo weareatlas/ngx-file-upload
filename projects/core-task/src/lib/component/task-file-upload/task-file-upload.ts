@@ -7,7 +7,7 @@ export class TaskFileUpload {
 
     public parseError: string | Error;
     public error: string ;
-    public response: HttpResponse<any> | string;
+    public response: any    ;
     public responseCode: number;
     public responseBody: any;
 
@@ -37,5 +37,7 @@ export class TaskFileUpload {
         state: ProgressState.NotStarted,
         formattedValue: ''
     };
+
+
 }
 

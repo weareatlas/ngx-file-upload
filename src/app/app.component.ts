@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { IConfiguration } from 'core-task/task-core-task';
+import { IConfiguration } from 'projects/core-task/src/lib/component/task-file-upload/model/configuration-type';
+import { TaskFileUpload } from 'core-task/public-api';
 
-import { TaskFileUpload} from 'core-task';
 
 
 
@@ -18,16 +18,17 @@ export class AppComponent implements OnInit, AfterViewInit {
   private taskTitle = 'This is a Title';
   private taskSubTitle = 'This is sub-title.';
 
-  @ViewChild(TaskFileUpload, {static: false}) task: any;
+  // @ViewChild(TaskFileUpload, {static: false}) task: any;
 
 
   public getconfiguration(): IConfiguration {
 
     return {
      allowedContentTypes: [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif' ], maxFileSize: 1, disableOnUpload: true,
-     allowMultiple: true, request: {url: 'https://putsreq.com/4sS1oMfgxoydiTUMsoyA', method: 'POST'  } ,
+     allowMultiple: true, request: {url: 'https://putsreq.com/WRYT0psnRc5ikZoxkYX2/inspect', method: 'POST'  } ,
      dragOverClass: 'mat-elevation-z20'  };
 
+     //
   }
   private remove() {
 
@@ -39,7 +40,18 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    const i = 'sdsd';
+  }
 
+
+  private fileUploaded(event: TaskFileUpload) {
+    console.log(event.response);
+  }
+
+  private fileDeleted(data: any) {
+    console.log(data);
+  }
+
+  private error(eror: any) {
+    console.log(eror);
   }
 }
