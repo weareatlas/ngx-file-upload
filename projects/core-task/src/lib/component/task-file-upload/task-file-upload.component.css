@@ -1,8 +1,26 @@
-.uploadZone {
-    border-radius: 10px;
-    border: 1px dotted;
-}
-
 .error {
     color: red;
+}
+
+.title {
+    font-style: italic;
+    font-weight: 700;
+    margin: 5px 5px;
+}
+
+.default-drop-zone {
+   
+    background-color: lightgrey;
+    opacity: 0.5;
+}
+
+.default-drag-over {
+    border: dashed black 2px;
+    opacity: 0.9;
+}
+
+.default-file-upload-progress {
+    border: none;
+    opacity: 0.9;
+
 }

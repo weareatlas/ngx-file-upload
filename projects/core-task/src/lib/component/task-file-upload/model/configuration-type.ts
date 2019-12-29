@@ -23,4 +23,10 @@ export interface IConfiguration {
      // Class to apply when a file is dragged over a drop zone
      dragOverClass?: string;
 
+     // Class to apply when the component is displayed in the page
+     dropZoneClass?: string;
+
+     // Class to apply when a file upload is in progress
+     fileUploadProgressClass?: string;
+
 }

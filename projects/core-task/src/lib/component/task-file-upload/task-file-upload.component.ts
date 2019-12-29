@@ -17,6 +17,7 @@ import { TaskFileUploadService } from './service/task-file-upload.service';
 export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
+   uploadStarted = false;
    @Input() configuration: IConfiguration;
    @Input() public initialMessage: string;
    @Input() public taskTitle: string;
@@ -68,6 +69,10 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
       this.parseConfiguration();
 
       this.fileUploadObservable$.subscribe ( (data) => {
+
+        this.getParentElement.className = this.configurationReaderService.config.fileUploadProgressClass;
+        this.uploadStarted = true;
+
         data.forEach((fileUpload) =>  {
 
             this.taskFileUploadService.upload(fileUpload).subscribe( (d) => {
@@ -105,16 +110,17 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
     private parseConfigurationObserver() {
           return {
               next: configuration =>  {
-                  this.isConfigurationValid = true;
-                  this.registerFileSources();
-                  this.subscribeToFileSources();
+
+                this.isConfigurationValid = true;
+                this.registerFileSources();
+                this.subscribeToFileSources();
               },
               error: error => {
                   this.isConfigurationValid = false;
                   // console.error(error);
                   this.error.emit(error);
               }
-              // complete: () => console.log('Configuration reader complete.') 
+              // complete: () => console.log('Configuration reader complete.')
             };
     }
 
@@ -178,7 +184,7 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
         event.preventDefault();
         event.stopPropagation();
 
-        this.getParentElement.className = this.configurationReaderService.config.dragOverClass;
+        this.getParentElement.className =  this.configurationReaderService.config.dragOverClass;
       });
 
     this.dragLeaveEventObservable$
@@ -186,7 +192,7 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
       .subscribe( (event) => {
           event.preventDefault();
           event.stopPropagation();
-          this.getParentElement.className = '';
+          this.getParentElement.className = this.configurationReaderService.config.dropZoneClass;
       });
 
     this.dropEventObservable$
@@ -195,7 +201,7 @@ export class TaskFileUploadComponent implements OnInit, AfterViewInit, OnDestroy
 
           event.preventDefault();
           event.stopPropagation();
-          this.getParentElement.className = '';
+          this.getParentElement.className = this.configurationReaderService.config.dropZoneClass;
 
           // create the file upload object
           this.taskFileUploadService.createFileUploadAsync (event.dataTransfer.files).subscribe( (fileUpload: TaskFileUpload[]) => {
