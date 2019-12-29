@@ -56,6 +56,24 @@ export class ConfigurationReaderService implements OnDestroy  {
                     configuration.disableOnUpload = this.config.disableOnUpload;
                 }
 
+                if (this.config.dragOverClass) {
+                    configuration.dragOverClass = this.config.dragOverClass;
+                } else {
+                    configuration.dragOverClass = 'default-drag-over';
+                }
+
+                if (this.config.dropZoneClass) {
+                    configuration.dropZoneClass = this.config.dropZoneClass;
+                } else {
+                    configuration.dropZoneClass = 'default-drop-zone';
+                }
+
+                if (this.config.fileUploadProgressClass) {
+                    configuration.fileUploadProgressClass = this.config.fileUploadProgressClass;
+                } else {
+                    configuration.fileUploadProgressClass = 'default-file-upload-progress';
+                }
+
                 // Request details
                 if (this.config.request) {
 
@@ -74,6 +92,7 @@ export class ConfigurationReaderService implements OnDestroy  {
                     subscriber.error(new ConfigurationError(`Please specify the request parameters.`));
                 }
 
+                this.config = configuration;
                 subscriber.next(configuration);
                 subscriber.complete();
             }

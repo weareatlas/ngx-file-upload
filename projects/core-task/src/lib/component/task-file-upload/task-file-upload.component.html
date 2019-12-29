@@ -1,38 +1,28 @@
-<div #taskFileUploadParentContainer>
-    <mat-card  class ='uploadZone' >
-        <mat-card-header>
-            <mat-card-title>{{taskTitle}}</mat-card-title>
-            <mat-card-subtitle>{{taskSubTitle}}</mat-card-subtitle>
-        </mat-card-header>    
-        <mat-card-content >
-            <div #taskParentElement fxLayout="row" fxLayoutAlign="center center" >
-                    <input type="file" #taskFileInput style="display: none;">            
-                    <div id="task-file-upload-dropzone" fxLayout="row" fxLayoutAlign="center none"   >
-                        <div >{{initialMessage}}</div>
-                        <div><mat-icon>cloud_upload</mat-icon></div>
-                    </div>
-            </div>
-            <div fxFill fxLayout="column"> 
-                <div  fxFill fxLayout="column" *ngFor = 'let fileUpload of fileUploadObservable$ | async' >
+<div #taskFileUploadParentContainer  class="default-drop-zone">
+        <label class="title">{{taskTitle}}</label>
+        <div #taskParentElement fxLayout="row" fxLayoutAlign="center center" >
+                <input type="file" #taskFileInput style="display: none;">            
+                <div *ngIf="!uploadStarted" id="task-file-upload-dropzone" fxLayout="column" fxLayoutAlign="center center" >
+                    <div><mat-icon>cloud_upload</mat-icon></div>                        
+                    <div class="title">{{initialMessage}}</div>
+                </div>
+        </div>
+        <div fxFill fxLayout="column"> 
+            <div  fxFill fxLayout="column" *ngFor = 'let fileUpload of fileUploadObservable$ | async' >
 
-                    <div fxFill fxLayout="row"  *ngIf="fileUpload.progress.state === 3 ">
-                        <div fxFlex="30"><a href="" target="_blank">{{fileUpload.file.name}}</a></div>
-                        <button  mat-button (click) = 'delete(fileUpload.response)'>
-                            <mat-icon >delete</mat-icon>
-                        </button>
-                    </div>
+                <div fxFill fxLayout="row"  *ngIf="fileUpload.progress.state === 3 ">
+                    <div fxFlex="30"><a href="" target="_blank">{{fileUpload.file.name}}</a></div>
+                    <button  mat-button (click) = 'delete(fileUpload.response)'>
+                        <mat-icon >delete</mat-icon>
+                    </button>
+                </div>
 
-                    <div *ngIf="fileUpload.progress.state === 2 || fileUpload.progress.state === 4">
-                        <p>{{fileUpload.file.name}} {{fileUpload.progress.formattedValue}}</p>             
-                        <mat-progress-bar class="app-progress" aria-label ='' mode="determinate" value="{{fileUpload.progress.percent}}"></mat-progress-bar>
-                        <div *ngIf = 'fileUpload.error' class="error">{{fileUpload.error.message}}</div>
-                        <p *ngIf = '!fileUpload.error'>{{fileUpload.response.body}}</p>
-                    </div>
-                    <br>
-                    <mat-divider></mat-divider>
-                    </div>
-            </div>    
-        </mat-card-content>
-
-    </mat-card>
-</div>
+                <div *ngIf="fileUpload.progress.state === 2 || fileUpload.progress.state === 4">
+                    <p>{{fileUpload.file.name}} {{fileUpload.progress.formattedValue}}</p>             
+                    <mat-progress-bar class="app-progress" aria-label ='' mode="determinate" value="{{fileUpload.progress.percent}}"></mat-progress-bar>
+                    <div *ngIf = 'fileUpload.error' class="error">{{fileUpload.error.message}}</div>
+                    <p *ngIf = '!fileUpload.error'>{{fileUpload.response.body}}</p>
+                </div>
+                </div>
+        </div>    
+</div>  

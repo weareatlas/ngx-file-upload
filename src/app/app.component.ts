@@ -25,8 +25,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     return {
      allowedContentTypes: [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif' ], maxFileSize: 1, disableOnUpload: true,
-     allowMultiple: true, request: {url: 'https://putsreq.com/WRYT0psnRc5ikZoxkYX2/inspect', method: 'POST'  } ,
-     dragOverClass: 'mat-elevation-z20'  };
+     allowMultiple: true, request: {url: 'https://putsreq.com/WRYT0psnRc5ikZoxkYX2/inspect', method: 'POST'  } };
 
      //
   }

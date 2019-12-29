@@ -8,4 +8,7 @@ export class Configuration implements IConfiguration {
     maxFileSize?: number;
     disableOnUpload?: boolean = false;
     request: IRequestOption;
+    dropZoneClass: string ;
+    dragOverClass: string ;
+    fileUploadProgressClass: string;
 }
