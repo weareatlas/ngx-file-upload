@@ -1,7 +1,6 @@
 import { IRequestOption } from './model/request-option';
 import { IProgress } from './model/progress';
 import { ProgressState } from './model/progress-state';
-import { HttpResponse } from '@angular/common/http';
 
 export class TaskFileUpload {
 
@@ -10,6 +9,7 @@ export class TaskFileUpload {
     public response: any    ;
     public responseCode: number;
     public responseBody: any;
+    public isDeleted = false;
 
     constructor(private file: File, private requestOptions: IRequestOption) {
 
@@ -40,4 +40,3 @@ export class TaskFileUpload {
 
 
 }
-

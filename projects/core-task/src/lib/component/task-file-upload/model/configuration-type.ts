@@ -14,9 +14,6 @@ export interface IConfiguration {
     // Maximum file sizs (MB)
     maxFileSize?: number;
 
-    // Disbale the file upload on selecting files
-    disableOnUpload?: boolean;
-
     // Endpoint to upload the file
      request: IRequestOption;
 

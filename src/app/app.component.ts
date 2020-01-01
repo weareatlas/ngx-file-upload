@@ -16,16 +16,12 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private initialMessage = 'Drag & Drop files or click to upload .';
   private taskTitle = 'This is a Title';
-  private taskSubTitle = 'This is sub-title.';
 
-  // @ViewChild(TaskFileUpload, {static: false}) task: any;
-
-
-  public getconfiguration(): IConfiguration {
+  public get configuration(): IConfiguration {
 
     return {
-     allowedContentTypes: [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif' ], maxFileSize: 1, disableOnUpload: true,
-     allowMultiple: true, request: {url: 'https://putsreq.com/WRYT0psnRc5ikZoxkYX2/inspect', method: 'POST'  } };
+     allowedContentTypes: [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif' ], maxFileSize: 1,
+     allowMultiple: true, request: {url: 'https://putsreq.com/zWV3lcVh9E9EGmx9o5dM', method: 'POST'  } };
 
      //
   }

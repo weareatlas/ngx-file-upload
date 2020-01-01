@@ -1,8 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-
-
 import { Injectable, OnDestroy } from '@angular/core';
-
 import { takeUntil } from 'rxjs/operators';
 import { IConfiguration } from '../model/configuration-type';
 import { Configuration } from '../model/configuration';
@@ -15,16 +12,12 @@ export class ConfigurationReaderService implements OnDestroy  {
 
     private unsubscribe$: Subject<void> = new Subject();
 
-    public  config: IConfiguration;
+    public config: IConfiguration;
 
-    constructor() {
+    constructor() { }
 
-
-    }
-
-    // read upload cofiguration
-    Read(): Observable<IConfiguration | Error> {
-
+    // read cofiguration
+    read(): Observable<IConfiguration | Error> {
 
         return new Observable<IConfiguration | Error> ( (subscriber) => {
             if (this.config) {
@@ -51,23 +44,21 @@ export class ConfigurationReaderService implements OnDestroy  {
                     configuration.maxFileSize = this.config.maxFileSize;
                 }
 
-                // disable on file selection
-                if (this.config.disableOnUpload) {
-                    configuration.disableOnUpload = this.config.disableOnUpload;
-                }
-
+                // class to apply when file is dragged over a drop zone
                 if (this.config.dragOverClass) {
                     configuration.dragOverClass = this.config.dragOverClass;
                 } else {
                     configuration.dragOverClass = 'default-drag-over';
                 }
 
+                // drop zone class
                 if (this.config.dropZoneClass) {
                     configuration.dropZoneClass = this.config.dropZoneClass;
                 } else {
                     configuration.dropZoneClass = 'default-drop-zone';
                 }
 
+                // file upload progress class
                 if (this.config.fileUploadProgressClass) {
                     configuration.fileUploadProgressClass = this.config.fileUploadProgressClass;
                 } else {
@@ -96,9 +87,7 @@ export class ConfigurationReaderService implements OnDestroy  {
                 subscriber.next(configuration);
                 subscriber.complete();
             }
-        }).
-        pipe(takeUntil(this.unsubscribe$));
-
+        }).pipe(takeUntil(this.unsubscribe$));
     }
 
     ngOnDestroy(): void {
