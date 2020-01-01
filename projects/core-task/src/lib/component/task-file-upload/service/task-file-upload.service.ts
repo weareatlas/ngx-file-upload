@@ -3,7 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { TaskFileUpload } from '../task-file-upload';
 import { ProgressState } from '../model/progress-state';
-import { tap, catchError, map, switchMap } from 'rxjs/operators';
+import { tap, catchError} from 'rxjs/operators';
 import { ConfigurationReaderService } from './cofiguration-reader.service';
 import { FileSizeLimitExceededError, DisallowedContentTypeError, MaximumFileCountExceededError } from '../model/error';
 
@@ -18,6 +18,7 @@ export class TaskFileUploadService implements OnDestroy  {
 
     }
 
+    public fileUploadMapping =  [];
     private error = new Subject<Error>();
     public error$ = this.error.asObservable();
 
@@ -27,12 +28,6 @@ export class TaskFileUploadService implements OnDestroy  {
     // upload file
     public upload(fileUpload: TaskFileUpload ): Observable<any> {
 
-
-        // if (fileUpload.parseError) {
-        //     return new Observable( (s) => {
-        //         fileUpload.progress = {state: ProgressState.NotStarted , percent: 0, formattedValue: '' };
-        //     });
-        // }
         const requestUrl = new URL(fileUpload.Request.url);
 
         return this.http.request(fileUpload.Request.method, requestUrl.toString(),
@@ -49,7 +44,6 @@ export class TaskFileUploadService implements OnDestroy  {
                         const percentDone = Math.round(100 * event.loaded / event.total);
                         const formatted = percentDone + ' %';
                         fileUpload.progress = {state: ProgressState.InProgress , percent: percentDone, formattedValue: formatted };
-                        // console.log( `File "${fileUpload.FileInfo.name}" is ${percentDone}% uploaded.`);
                         break;
 
                     case HttpEventType.Response:
@@ -57,13 +51,6 @@ export class TaskFileUploadService implements OnDestroy  {
                             fileUpload.progress = {state: ProgressState.Completed , percent: 100, formattedValue: '100 %'};
                         }
                         fileUpload.response = event;
-
-                        // console.log(event);
-
-                        // fileUpload.response = event;
-                        // fileUpload.progress = {state: ProgressState.Completed , percent: 100, formattedValue: '100 %'};
-                        // console.log( `File "${fileUpload.FileInfo.name}"
-                        // was completely uploaded! Your user ID is: "${event.body.userID}"`);
                         break;
                     }
                 }
@@ -116,17 +103,15 @@ export class TaskFileUploadService implements OnDestroy  {
                     const errorMessage = `${file.name} failed to upload because its content type, ${file.type}, is not allowed.`;
                     const disallowedContentTypeError = new DisallowedContentTypeError(errorMessage);
                     fileUpload.parseError = disallowedContentTypeError;
-                    // this.error.next(disallowedContentTypeError);
-
                 }
             } else {
                 const errorMessage = `${file.name} is larger than the limit of ${this.configuration.maxFileSize}MB
                  for a single file.`;
                 const fileSizeExceedError = new FileSizeLimitExceededError(errorMessage);
-                fileUpload.parseError = 'MAx size';
-                // this.error.next(fileSizeExceedError);
+                fileUpload.parseError = fileSizeExceedError;
             }
 
+            this.fileUploadMapping.push(fileUpload.FileInfo.name);
             allowedFiles.push(fileUpload);
 
         }
@@ -135,9 +120,9 @@ export class TaskFileUploadService implements OnDestroy  {
     } );
   }
 
-  get configuration() {
-      return this.configurationReaderService.config;
-  }
+    get configuration() {
+        return this.configurationReaderService.config;
+    }
 
     ngOnDestroy(): void {
         this.unsubscribe$.next();
