@@ -10,7 +10,7 @@ import { TaskFileUploadService } from './service/task-file-upload.service';
 
 
 @Component({
-  selector: 'file-upload',
+  selector: 'multi-file-upload',
   templateUrl: './task-file-upload.component.html',
   styleUrls: ['./task-file-upload.component.css']
 })

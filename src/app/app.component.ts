@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { IConfiguration } from 'projects/core-task/src/lib/component/task-file-upload/model/configuration-type';
-import { TaskFileUpload } from 'core-task/public-api';
+import { TaskFileUpload } from 'projects/core-task/src/lib/component/task-file-upload/task-file-upload';
+
+
 
 
 
@@ -21,7 +23,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     return {
      allowedContentTypes: [ 'image/png', 'image/jpg', 'image/jpeg', 'image/gif' ], maxFileSize: 1,
-     allowMultiple: true, request: {url: 'https://putsreq.com/zWV3lcVh9E9EGmx9o5dM', method: 'POST'  } };
+     allowMultiple: true, request: {url: 'http://localhost/files', method: 'POST'  } };
 
      //
   }
