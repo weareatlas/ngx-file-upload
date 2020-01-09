@@ -15,7 +15,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       maxFileSize: 1,
       allowMultiple: true,
       request: {
-        url: 'http://localhost/files',
+        url: 'http://localhost/file',
         method: 'POST'
       }
     };
@@ -36,6 +36,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   onFailed(event: any) {
+    console.log(event);
+  }
+
+  onClicked(event: any) {
     console.log(event);
   }
 }

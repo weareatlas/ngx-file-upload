@@ -13,7 +13,7 @@
       <div fxFill fxLayout="column"
            *ngIf="(fileUpload.progress.state === 3 || fileUpload.progress.state === 4) && !fileUpload.isDeleted">
         <div fxFill fxLayout="row">
-          <p fxFlex *ngIf="!fileUpload.error">{{fileUpload.file.name}}</p>
+          <p class="file" (click)="click(fileUpload, $event)" fxFlex *ngIf="!fileUpload.error">{{fileUpload.file.name}}</p>
           <p fxFlex *ngIf="fileUpload.error">{{fileUpload.file.name}}</p>
           <button mat-button (click)="delete(fileUploads, fileUpload, $event)">
             <mat-icon>delete</mat-icon>

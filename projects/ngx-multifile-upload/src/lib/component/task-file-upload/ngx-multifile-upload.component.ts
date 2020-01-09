@@ -36,6 +36,9 @@ export class NgxMultifileUploadComponent implements OnInit, AfterViewInit, OnDes
 
   @Output() failed: EventEmitter<any> = new EventEmitter<any>();
 
+  @Output() clicked: EventEmitter<any> = new EventEmitter<any>();
+
+
   private isConfigurationValid = false;
 
   // Observable subscribed on the view
@@ -73,6 +76,11 @@ export class NgxMultifileUploadComponent implements OnInit, AfterViewInit, OnDes
   }
 
   ngOnInit() {
+  }
+
+  click(fileUpload: TaskFileUpload, event: any) {
+    event.stopPropagation();
+    this.clicked.emit(fileUpload);
   }
 
   delete(fileUploads: TaskFileUpload[], fileUpload: TaskFileUpload, event: any) {

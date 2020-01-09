@@ -24,3 +24,8 @@
     opacity: 0.9;
 
 }
+
+.file:hover {
+    text-decoration: underline;
+    cursor:pointer
+  }
