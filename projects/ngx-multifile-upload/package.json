@@ -1,13 +1,12 @@
 {
   "name": "@ashishp/ngx-multifile-upload",
-  "version": "0.0.1",
+  "version": "0.0.1-beta",
   "peerDependencies": {
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14",
     "@angular/flex-layout": "^8.0.0-beta.27",
-    "@angular/material": "^8.2.3"    
+    "@angular/material": "^8.2.3"
   },
   "dependencies": {
-
   }
 }

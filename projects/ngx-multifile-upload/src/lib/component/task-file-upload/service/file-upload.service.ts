@@ -10,55 +10,58 @@ import { FileSizeLimitExceededError, DisallowedContentTypeError, MaximumFileCoun
 @Injectable({
     providedIn: 'root',
   })
-export class TaskFileUploadService implements OnDestroy  {
+export class FileUploadService implements OnDestroy  {
 
     private bytesPerMB = 1000 * 1000;
 
     constructor( private http: HttpClient, private configurationReaderService: ConfigurationReaderService) {
-
     }
 
-    public fileUploadMapping =  [];
+    public fileUploadMapping = [];
+
     private error = new Subject<Error>();
+
     public error$ = this.error.asObservable();
 
     private unsubscribe$: Subject<void> = new Subject();
-
 
     // upload file
     public upload(fileUpload: TaskFileUpload ): Observable<any> {
 
         const requestUrl = new URL(fileUpload.Request.url);
 
-        return this.http.request(fileUpload.Request.method, requestUrl.toString(),
-            {body: fileUpload.formData, reportProgress: true, observe: 'events',
-            responseType: 'text', headers: fileUpload.Request.headers , params: fileUpload.Request.params })
+        return this.http.request(fileUpload.Request.method, requestUrl.toString(), {
+              body: fileUpload.formData,
+              reportProgress: true,
+              observe: 'events',
+              responseType: 'text',
+              headers: fileUpload.Request.headers,
+              params: fileUpload.Request.params
+            })
             .pipe(
                 tap( (event) => {
-                switch (event.type) {
-                    case HttpEventType.Sent:
-                        fileUpload.response = `Uploading started.`;
-                        break;
-                    case HttpEventType.UploadProgress:
-                        // Compute and show the % done:
-                        const percentDone = Math.round(100 * event.loaded / event.total);
-                        const formatted = percentDone + ' %';
-                        fileUpload.progress = {state: ProgressState.InProgress , percent: percentDone, formattedValue: formatted };
-                        break;
-
-                    case HttpEventType.Response:
-                        if (event.status === 200) {
-                            fileUpload.progress = {state: ProgressState.Completed , percent: 100, formattedValue: '100 %'};
-                        }
-                        fileUpload.response = event;
-                        break;
-                    }
-                }
-                ), catchError( (error) => {
+                  switch (event.type) {
+                      case HttpEventType.Sent:
+                          fileUpload.response = `Uploading started.`;
+                          break;
+                      case HttpEventType.UploadProgress:
+                          // Compute and show the % done:
+                          const percentDone = Math.round(100 * event.loaded / event.total);
+                          const formatted = percentDone + '%';
+                          fileUpload.progress = {state: ProgressState.InProgress , percent: percentDone, formattedValue: formatted };
+                          break;
+                      case HttpEventType.Response:
+                          if (event.status === 200) {
+                              fileUpload.progress = {state: ProgressState.Completed , percent: 100, formattedValue: '100%'};
+                          }
+                          fileUpload.response = event;
+                          break;
+                      }
+                  }),
+                catchError( (error) => {
                     return new Observable( (s) => {
                         fileUpload.progress = {state: ProgressState.Failed , percent: 0, formattedValue: '' };
                         fileUpload.error = error;
-                        console.log(error);
                     });
                 })
             );
@@ -79,7 +82,7 @@ export class TaskFileUploadService implements OnDestroy  {
         if (files && files.length && this.configuration.maxFileCount) {
 
             if (files.length > this.configuration.maxFileCount) {
-                const errorMessage = `You can upload maximumn ${this.configuration.maxFileSize} files at a time.`;
+                const errorMessage = `You can upload maximum ${this.configuration.maxFileSize} files at a time.`;
                 const fileSizeExceedError = new MaximumFileCountExceededError(errorMessage);
                 // this.error.next(fileSizeExceedError);
                 // return;
@@ -89,16 +92,11 @@ export class TaskFileUploadService implements OnDestroy  {
 
             const fileUpload = new TaskFileUpload(file, this.configuration.request);
 
-            if (this.configuration.maxFileSize &&
-                 (file.size < this.configuration.maxFileSize * this.bytesPerMB)) {
-
+            if (this.configuration.maxFileSize && (file.size < this.configuration.maxFileSize * this.bytesPerMB)) {
                 const isContentTypeValid = this.configuration.
                 allowedContentTypes.find( contnetType => file.type === contnetType);
-
                 if (isContentTypeValid) {
                     fileUpload.parseError = '';
-
-
                 } else {
                     const errorMessage = `${file.name} failed to upload because its content type, ${file.type}, is not allowed.`;
                     const disallowedContentTypeError = new DisallowedContentTypeError(errorMessage);
@@ -110,10 +108,8 @@ export class TaskFileUploadService implements OnDestroy  {
                 const fileSizeExceedError = new FileSizeLimitExceededError(errorMessage);
                 fileUpload.parseError = fileSizeExceedError;
             }
-
             this.fileUploadMapping.push(fileUpload.FileInfo.name);
             allowedFiles.push(fileUpload);
-
         }
 
         subscriber.next(allowedFiles);
@@ -128,5 +124,4 @@ export class TaskFileUploadService implements OnDestroy  {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
     }
-
 }
