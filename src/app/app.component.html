@@ -1,10 +1,7 @@
-<multi-file-upload
-    [title] = 'taskTitle'
-    [configuration] ='configuration'
-    [initialMessage] ='initialMessage'
-    (uploaded) ='fileUploaded($event)' 
-    (deleted) ='fileDeleted($event)'
-    (error) = 'error()'></multi-file-upload>
-
-
+<ngx-multifile-upload
+    uploadText="Drag & Drop files or click to upload."
+    [configuration]="configuration"
+    (uploaded)="onUploaded($event)"
+    (deleted)="onDeleted($event)"
+    (failed)="onFailed($event)"></ngx-multifile-upload>
 <router-outlet></router-outlet>

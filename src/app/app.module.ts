@@ -1,15 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CoreTaskModule } from 'projects/core-task/src/lib/core-task.module';
-
-
-
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NgxMultifileUploadModule} from 'projects/ngx-multifile-upload/src/lib/ngx-multifile-upload.module';
 
 @NgModule({
   declarations: [
@@ -19,10 +13,10 @@ import { CoreTaskModule } from 'projects/core-task/src/lib/core-task.module';
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-CoreTaskModule
-
+    NgxMultifileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

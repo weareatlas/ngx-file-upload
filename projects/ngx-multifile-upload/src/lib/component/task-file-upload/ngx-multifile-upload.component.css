@@ -9,7 +9,7 @@
 }
 
 .default-drop-zone {
-   
+  padding: 5px;
     background-color: lightgrey;
     opacity: 0.5;
 }
