@@ -62,7 +62,6 @@ export class FileUploadService implements OnDestroy  {
                     return new Observable( (s) => {
                         fileUpload.progress = {state: ProgressState.Failed , percent: 0, formattedValue: '' };
                         fileUpload.error = error;
-                        console.log(error);
                     });
                 })
             );

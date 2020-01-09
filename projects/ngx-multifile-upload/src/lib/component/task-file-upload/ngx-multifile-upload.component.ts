@@ -169,7 +169,6 @@ export class NgxMultifileUploadComponent implements OnInit, AfterViewInit, OnDes
     return this.fileInputChangeEventObservable$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((event) => {
-        console.log('Change');
         if (event.target.files && event.target.files.length > 0) {
           this.taskFileUploadService.createFileUploadAsync(event.target.files)
             .pipe(takeUntil(this.unsubscribe$))
