@@ -28,15 +28,18 @@ export class FileUploadService implements OnDestroy  {
     // upload file
     public upload(fileUpload: TaskFileUpload ): Observable<any> {
 
-        const requestUrl = new URL(fileUpload.Request.url);
+        //const requestUrl = new URL(fileUpload.Request.url);
+
+        const requestUrl = this.configurationReaderService.buildUrl(fileUpload.Request.url,
+             fileUpload.Request.params)
 
         return this.http.request(fileUpload.Request.method, requestUrl.toString(), {
               body: fileUpload.formData,
               reportProgress: true,
               observe: 'events',
               responseType: 'text',
-              headers: fileUpload.Request.headers,
-              params: fileUpload.Request.params
+              headers: this.configurationReaderService.buildHeaders(fileUpload.Request.headers),
+              params: this.configurationReaderService.buildParms(fileUpload.Request.params)
             })
             .pipe(
                 tap( (event) => {
@@ -51,7 +54,7 @@ export class FileUploadService implements OnDestroy  {
                           fileUpload.progress = {state: ProgressState.InProgress , percent: percentDone, formattedValue: formatted };
                           break;
                       case HttpEventType.Response:
-                          if (event.status === 200) {
+                          if (event.status === 200 || event.status === 201 || event.status === 204) {
                               fileUpload.progress = {state: ProgressState.Completed , percent: 100, formattedValue: '100%'};
                           }
                           fileUpload.response = event;

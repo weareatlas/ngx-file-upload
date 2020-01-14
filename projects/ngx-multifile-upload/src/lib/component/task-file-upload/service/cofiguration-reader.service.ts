@@ -90,6 +90,52 @@ export class ConfigurationReaderService implements OnDestroy  {
         }).pipe(takeUntil(this.unsubscribe$));
     }
 
+
+    public buildHeaders(headers: any): {} {
+
+        const objHeader = {};
+        if (headers) {
+            headers.forEach((header) => {
+                if (header.value != null) {
+                    objHeader[header.key] = header.value;
+                }
+            });
+            return objHeader;
+        }
+        return objHeader;
+    }
+
+
+    public buildParms(params: any): {} {
+
+        const objParms = {};
+        if (params) {
+            params.forEach((param) => {
+                if (param.value != null) {
+                    objParms[param.key] = param.value;
+                }
+            });
+            return objParms;
+        }
+        return objParms;
+    }
+
+    public buildUrl(url: string, params: any): URL {
+
+        const uploadUrl = new URL(url);
+
+        if (params) {
+            params.forEach((param) => {
+                if (param.value != null) {
+                    uploadUrl.searchParams.append(param.key, param.value);
+                }
+            });
+            return uploadUrl;
+        }
+
+        return uploadUrl;
+    }
+
     ngOnDestroy(): void {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();

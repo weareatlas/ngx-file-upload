@@ -15,7 +15,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       maxFileSize: 1,
       allowMultiple: true,
       request: {
-        url: 'http://localhost/file',
+        url: 'https://putsreq.com/ZZIBGV0QehtFkvnFXvSP',
         method: 'POST'
       }
     };
