@@ -101,7 +101,7 @@ export class NgxMultifileUploadComponent implements OnInit, AfterViewInit, After
 
     delete(fileUploads: IFileUpload[], fileUpload: FileUpload, event: any) {
         event.stopPropagation();
-        const fileUploadMapping = this.taskFileUploadService.fileUploadMapping.filter(file => file !== fileUpload.FileInfo.name);
+        const fileUploadMapping = this.taskFileUploadService.fileUploadMapping.filter(file => file !== fileUpload.file.name);
         this.taskFileUploadService.fileUploadMapping = fileUploadMapping;
         this.fileInput.nativeElement.value = '';
         if (fileUpload.response) {
