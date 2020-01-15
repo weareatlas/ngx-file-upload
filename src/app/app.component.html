@@ -1,5 +1,6 @@
 <ngx-multifile-upload
     uploadText="Drag & Drop files or click to upload."
+    [files]="files"
     [configuration]="configuration"
     (uploaded)="onUploaded($event)"
     (deleted)="onDeleted($event)"

@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {IConfiguration} from '../../projects/ngx-multifile-upload/src/lib/component/task-file-upload/model/configuration-type';
-import {TaskFileUpload} from '../../projects/ngx-multifile-upload/src/lib/component/task-file-upload/task-file-upload';
+import {FileUpload} from '../../projects/ngx-multifile-upload/src/lib/component/task-file-upload/file-upload';
 
 @Component({
   selector: 'app-root',
@@ -21,13 +21,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     };
   }
 
+  public get files(): File[] {
+    return [new File([], 'test.jpg')];
+  }
+
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
   }
 
-  onUploaded(event: TaskFileUpload) {
+  onUploaded(event: FileUpload) {
     console.log(event.response);
   }
 

@@ -8,10 +8,9 @@
       <div class="title">{{uploadText}}</div>
     </div>
   </div>
-  <div fxFill *ngIf="fileUploadObservable$ | async; let fileUploads">
-    <div fxFill fxLayout="column" *ngFor="let fileUpload of fileUploads">
-      <div fxFill fxLayout="column"
-           *ngIf="(fileUpload.progress.state === 3 || fileUpload.progress.state === 4) && !fileUpload.isDeleted">
+  <div fxFill *ngIf="fileUploads != null;">
+    <div fxFill fxLayout="column" *ngFor="let fileUpload of fileUploads;">
+      <div fxFill fxLayout="column" *ngIf="(fileUpload.progress.state === 3 || fileUpload.progress.state === 4) && !fileUpload.isDeleted">
         <div fxFill fxLayout="row">
           <p class="file" (click)="click(fileUpload, $event)" fxFlex *ngIf="!fileUpload.error">{{fileUpload.file.name}}</p>
           <p fxFlex *ngIf="fileUpload.error">{{fileUpload.file.name}}</p>
@@ -25,6 +24,14 @@
         <p>{{fileUpload.file.name}} {{fileUpload.progress.formattedValue}}</p>
         <mat-progress-bar class="app-progress" mode="determinate" [value]="fileUpload.progress.percent"></mat-progress-bar>
         <p *ngIf="!fileUpload.error">{{fileUpload.response.body}}</p>
+      </div>
+      <div fxFill fxLayout="column" *ngIf="fileUpload.progress.state === 6 && !fileUpload.isDeleted">
+        <div fxFill fxLayout="row">
+          <p class="file" (click)="click(fileUpload, $event)" fxFlex>{{fileUpload.file.name}}</p>
+          <button mat-button (click)="delete(fileUploads, fileUpload, $event)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
   </div>

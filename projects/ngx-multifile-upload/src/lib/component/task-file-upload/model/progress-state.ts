@@ -4,5 +4,6 @@ export enum ProgressState {
     InProgress,
     Completed,
     Failed,
-    Cancelled
+    Cancelled,
+    Exists
 }

@@ -1,7 +1,7 @@
 import { Subject, Observable, of } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { TaskFileUpload } from '../task-file-upload';
+import {IFileUpload, FileUpload} from '../file-upload';
 import { ProgressState } from '../model/progress-state';
 import { tap, catchError} from 'rxjs/operators';
 import { ConfigurationReaderService } from './cofiguration-reader.service';
@@ -26,12 +26,17 @@ export class FileUploadService implements OnDestroy  {
     private unsubscribe$: Subject<void> = new Subject();
 
     // upload file
-    public upload(fileUpload: TaskFileUpload ): Observable<any> {
+    public upload(x: IFileUpload): Observable<any> {
 
-        //const requestUrl = new URL(fileUpload.Request.url);
+        let fileUpload: FileUpload;
+        if ('Request' in x) {
+            fileUpload = x as FileUpload;
+        } else {
+            return null;
+        }
 
         const requestUrl = this.configurationReaderService.buildUrl(fileUpload.Request.url,
-             fileUpload.Request.params)
+             fileUpload.Request.params);
 
         return this.http.request(fileUpload.Request.method, requestUrl.toString(), {
               body: fileUpload.formData,
@@ -71,16 +76,16 @@ export class FileUploadService implements OnDestroy  {
     }
 
    // Build FileUpload object
-   public createFileUploadAsync(fileList: FileList | File[]): Observable<TaskFileUpload[]> {
+   public createFileUploadAsync(fileList: FileList | File[]): Observable<FileUpload[]> {
 
-    return new Observable<TaskFileUpload[]>( (subscriber) => {
+    return new Observable<FileUpload[]>( (subscriber) => {
         let files: File[] = fileList as File[];
 
         if (files instanceof FileList) {
             files = Array.from(files);
         }
 
-        const allowedFiles: TaskFileUpload[] = [];
+        const allowedFiles: FileUpload[] = [];
 
         if (files && files.length && this.configuration.maxFileCount) {
 
@@ -93,7 +98,7 @@ export class FileUploadService implements OnDestroy  {
         }
         for (const file of files) {
 
-            const fileUpload = new TaskFileUpload(file, this.configuration.request);
+            const fileUpload = new FileUpload(file, this.configuration.request);
 
             if (this.configuration.maxFileSize && (file.size < this.configuration.maxFileSize * this.bytesPerMB)) {
                 const isContentTypeValid = this.configuration.

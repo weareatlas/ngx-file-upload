@@ -9,9 +9,14 @@
 }
 
 .default-drop-zone {
-  padding: 5px;
-    background-color: lightgrey;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.2);
     opacity: 0.5;
+    cursor: pointer;
+}
+
+.default-drop-zone .file {
+    cursor: default;
 }
 
 .default-drag-over {
@@ -24,8 +29,3 @@
     opacity: 0.9;
 
 }
-
-.file:hover {
-    text-decoration: underline;
-    cursor:pointer
-  }

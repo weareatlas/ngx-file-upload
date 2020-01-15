@@ -2,9 +2,14 @@ import { IRequestOption } from './model/request-option';
 import { IProgress } from './model/progress';
 import { ProgressState } from './model/progress-state';
 
-export class TaskFileUpload {
+export interface IFileUpload {
+    file: File;
+    progress: IProgress;
+}
 
-    constructor(private file: File, private requestOptions: IRequestOption) {
+export class FileUpload implements IFileUpload {
+
+    constructor(public file: File, private requestOptions: IRequestOption) {
     }
 
     public get formData(): FormData {
