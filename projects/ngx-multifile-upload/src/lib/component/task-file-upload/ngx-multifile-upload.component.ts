@@ -113,6 +113,7 @@ export class NgxMultifileUploadComponent implements OnInit, AfterViewInit, After
             fileUpload.delete();
         } else {
             fileUpload.isDeleted = true;
+            this.deleted.emit(null);
         }
 
         if (this.taskFileUploadService.fileUploadMapping && this.taskFileUploadService.fileUploadMapping.length === 0) {
