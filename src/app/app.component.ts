@@ -9,18 +9,17 @@ import {FileUpload} from '../../projects/ngx-multifile-upload/src/lib/component/
 })
 export class AppComponent implements OnInit, AfterViewInit {
 
-  public get configuration(): IConfiguration {
-    return {
-      allowedContentTypes: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'],
-      maxFileSize: 1,
-      allowMultiple: true,
-      request: {
-        url: 'https://putsreq.com/ZZIBGV0QehtFkvnFXvSP',
-        method: 'POST'
-      }
-    };
-  }
-
+   public get configuration(): IConfiguration {
+   return {
+     allowedContentTypes: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'],
+     maxFileSize: 1,
+     allowMultiple: true,
+     request: {
+       url: 'http://localhost/files',
+       method: 'POST'
+     }
+   };
+ }
   public get files(): File[] {
     return [new File([], 'test.jpg')];
   }

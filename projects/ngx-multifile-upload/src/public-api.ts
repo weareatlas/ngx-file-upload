@@ -10,6 +10,7 @@ export * from './lib/component/task-file-upload/model/error';
 export * from './lib/component/task-file-upload/model/progress';
 export * from './lib/component/task-file-upload/model/progress-state';
 export * from './lib/component/task-file-upload/model/request-option';
+export * from './lib/component/task-file-upload/model/body-type';
 export * from './lib/component/task-file-upload/file-upload';
 
 
