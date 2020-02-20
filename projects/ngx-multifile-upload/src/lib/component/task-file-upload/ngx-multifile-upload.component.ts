@@ -3,14 +3,15 @@ import {ConfigurationReaderService} from './service/cofiguration-reader.service'
 import {IConfiguration} from './model/configuration-type';
 import {fromEvent, Observable, Subject, Subscription} from 'rxjs';
 import {IFileUpload, FileUpload} from './file-upload';
-import {catchError, first, map, takeUntil, tap} from 'rxjs/operators';
+import {first, takeUntil, tap} from 'rxjs/operators';
 import {ProgressState} from './model/progress-state';
 import {FileUploadService} from './service/file-upload.service';
 
 @Component({
     selector: 'ngx-multifile-upload',
     templateUrl: './ngx-multifile-upload.component.html',
-    styleUrls: ['./ngx-multifile-upload.component.css']
+    styleUrls: ['./ngx-multifile-upload.component.css'],
+    providers: [FileUploadService]
 })
 export class NgxMultifileUploadComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
 
@@ -232,15 +233,19 @@ export class NgxMultifileUploadComponent implements OnInit, AfterViewInit, After
         return this.dropEventObservable$.subscribe((event) => {
             event.preventDefault();
             event.stopPropagation();
-            this.getParentElement.className = this.configurationReaderService.config.dropZoneClass;
-            // create the file upload object
-            this.taskFileUploadService.createFileUploadAsync(event.dataTransfer.files)
+
+            if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
+
+              this.getParentElement.className = this.configurationReaderService.config.dropZoneClass;
+              // create the file upload object
+              this.taskFileUploadService.createFileUploadAsync(event.dataTransfer.files)
                 .pipe(takeUntil(this.unsubscribe$))
                 .subscribe((fileUploads: FileUpload[]) => {
-                    this.deRegisterFileSources();
-                    // this.fileUploadSubject.next(fileUpload);
-                    this.doUpload(fileUploads);
+                  this.deRegisterFileSources();
+                  // this.fileUploadSubject.next(fileUpload);
+                  this.doUpload(fileUploads);
                 });
+            }
         });
     }
 
