@@ -7,3 +7,14 @@
     (failed)="onFailed($event)"
     (clicked)="onClicked($event)"></ngx-multifile-upload>
 <router-outlet></router-outlet>
+
+
+<ngx-multifile-upload
+  uploadText="Drag & Drop files or click to upload."
+  [files]="files"
+  [configuration]="configuration1"
+  (uploaded)="onUploaded($event)"
+  (deleted)="onDeleted($event)"
+  (failed)="onFailed($event)"
+  (clicked)="onClicked($event)"></ngx-multifile-upload>
+<router-outlet></router-outlet>

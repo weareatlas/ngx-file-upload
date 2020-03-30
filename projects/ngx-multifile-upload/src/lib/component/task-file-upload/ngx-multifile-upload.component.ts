@@ -11,7 +11,7 @@ import {FileUploadService} from './service/file-upload.service';
     selector: 'ngx-multifile-upload',
     templateUrl: './ngx-multifile-upload.component.html',
     styleUrls: ['./ngx-multifile-upload.component.css'],
-    providers: [FileUploadService]
+    providers: [FileUploadService, ConfigurationReaderService]
 })
 export class NgxMultifileUploadComponent implements OnInit, AfterViewInit, AfterContentInit, OnDestroy {
 
