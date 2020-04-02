@@ -37,8 +37,7 @@ export class FileUploadService implements OnDestroy  {
         return null;
       }
 
-      const requestUrl = this.configurationReaderService.buildUrl(fileUpload.Request.url,
-        fileUpload.Request.params);
+      const requestUrl = this.configurationReaderService.buildUrl(fileUpload.Request.url);
 
 
       if (this.possibleBodyType === BodyType.Binary) {

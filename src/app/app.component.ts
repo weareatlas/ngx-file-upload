@@ -38,13 +38,16 @@ export class AppComponent implements OnInit, AfterViewInit {
       {key: 'Content-Type', value: 'application/octet-stream'}
     ];
 
-    /*    const parms = [{key: 'st', value: '2020-01-29T093A07%3A11Z'},
+/*        const parms = [{key: 'st', value: '2020-01-29T093A07%3A11Z'},
           {key: 'se', value: '2050-01-30T09%3A07%3A00Z'},
           {key: 'sp', value: 'racwdl'},
           {key: 'sv', value: '2018-03-28'},
           {key: 'sr', value: 'b'},
           {key: 'sig', value: 'BCb%2FmnNXubZt%2BGh%2Fi3BgR%2Bd%2F0BK8BBAW1A%2FxJX7VJMg%3D'}
         ];*/
+
+    const parms = [{key: 'name', value: 'ashish'},
+    ];
 
     return {
       allowedContentTypes: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'],
@@ -53,7 +56,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       request: {
         url: link,
         method: 'POST',
-        headers: head
+        headers: head,
+        params: parms
       }
     };
   }
@@ -74,13 +78,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       {key: 'Content-Type', value: 'application/octet-stream'}
     ];
 
-    /*    const parms = [{key: 'st', value: '2020-01-29T093A07%3A11Z'},
-          {key: 'se', value: '2050-01-30T09%3A07%3A00Z'},
-          {key: 'sp', value: 'racwdl'},
-          {key: 'sv', value: '2018-03-28'},
-          {key: 'sr', value: 'b'},
-          {key: 'sig', value: 'BCb%2FmnNXubZt%2BGh%2Fi3BgR%2Bd%2F0BK8BBAW1A%2FxJX7VJMg%3D'}
-        ];*/
+
 
     return {
       allowedContentTypes: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'],

@@ -113,6 +113,7 @@ export class ConfigurationReaderService implements OnDestroy  {
             params.forEach((param) => {
                 if (param.value != null) {
                     objParms[param.key] = param.value;
+                    console.log(param.value);
                 }
             });
             return objParms;
@@ -120,20 +121,8 @@ export class ConfigurationReaderService implements OnDestroy  {
         return objParms;
     }
 
-    public buildUrl(url: string, params: any): URL {
-
-        const uploadUrl = new URL(url);
-
-        if (params) {
-            params.forEach((param) => {
-                if (param.value != null) {
-                    uploadUrl.searchParams.append(param.key, param.value);
-                }
-            });
-            return uploadUrl;
-        }
-
-        return uploadUrl;
+    public buildUrl(url: string): URL {
+      return new URL(url);
     }
 
     ngOnDestroy(): void {
