@@ -24,10 +24,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   public get configuration1(): IConfiguration {
 
-    let link = 'http://localhost:3333/api/uploadBuffer';
-
-
-
+    const link = 'http://localhost:3333/api/uploadBuffer';
 
 
     const head = [
@@ -52,7 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     return {
       allowedContentTypes: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'],
       maxFileSize: 1,
-      allowMultiple: true,
+      allowMultiple: false,
       request: {
         url: link,
         method: 'POST',
@@ -64,7 +61,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   public get configuration(): IConfiguration {
 
-    let link = 'http://localhost:3333/api/uploadBuffer';
+    const link = 'http://localhost:3333/api/uploadBuffer';
 
 
 
@@ -97,7 +94,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    let link = 'http://localhost:3333/api/uploadBuffer';
+    const link = 'http://localhost:3333/api/uploadBuffer';
 
     const oReq = new XMLHttpRequest();
     oReq.open('POST', link, true);

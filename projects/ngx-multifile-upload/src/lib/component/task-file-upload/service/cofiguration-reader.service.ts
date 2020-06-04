@@ -32,11 +32,8 @@ export class ConfigurationReaderService implements OnDestroy  {
                 // if multiple files can be uploaded
                 if (this.config.allowMultiple) {
                     configuration.allowMultiple = this.config.allowMultiple;
-                }
-
-                // maxium file allowed
-                if (this.config.maxFileCount) {
-                    configuration.maxFileCount = this.config.maxFileCount;
+                } else {
+                  configuration.allowMultiple = false;
                 }
 
                 // maximum size for each file

@@ -112,7 +112,7 @@ export class FileUploadService implements OnDestroy  {
 
         const allowedFiles: FileUpload[] = [];
 
-        if (files && files.length && this.configuration.maxFileCount) {
+/*        if (files && files.length && this.configuration.maxFileCount) {
 
             if (files.length > this.configuration.maxFileCount) {
                 const errorMessage = `You can upload maximum ${this.configuration.maxFileSize} files at a time.`;
@@ -120,7 +120,7 @@ export class FileUploadService implements OnDestroy  {
                 // this.error.next(fileSizeExceedError);
                 // return;
             }
-        }
+        }*/
         for (const file of files) {
 
             const fileUpload = new FileUpload(file, this.configuration.request);
