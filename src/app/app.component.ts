@@ -1,6 +1,7 @@
+import {IConfiguration} from '../../projects/ngx-file-upload/src/lib/component/model/configuration-type';
+import {FileUpload} from '../../projects/ngx-file-upload/src/lib/component/file-upload';
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {IConfiguration} from '../../projects/ngx-multifile-upload/src/lib/component/task-file-upload/model/configuration-type';
-import {FileUpload} from '../../projects/ngx-multifile-upload/src/lib/component/task-file-upload/file-upload';
+
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import {FileUpload} from '../../projects/ngx-multifile-upload/src/lib/component/
 })
 export class AppComponent implements OnInit, AfterViewInit {
 
-  /*   public get configuration(): IConfiguration {
+     public get configuration(): IConfiguration {
      return {
        allowedContentTypes: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'],
        maxFileSize: 1,
@@ -19,12 +20,12 @@ export class AppComponent implements OnInit, AfterViewInit {
          method: 'POST'
        }
      };
-   }*/
+   }
 
 
   public get configuration1(): IConfiguration {
 
-    const link = 'http://localhost:3333/api/uploadBuffer';
+    const link = 'http://localhost:4000/files';
 
 
     const head = [
@@ -58,7 +59,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     };
   }
-
+/*
   public get configuration(): IConfiguration {
 
     const link = 'http://localhost:3333/api/uploadBuffer';
@@ -68,10 +69,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 
     const head = [
-      /*      {key: 'x-ms-blob-type', value: 'BlockBlob'},
+      /!*      {key: 'x-ms-blob-type', value: 'BlockBlob'},
             {key: 'x-ms-version', value: '2019-02-02'},
             {key: 'x-ms-blob-content-disposition', value: 'inline'},
-            {key: 'x-ms-blob-content-type', value: 'image/jpeg'},*/
+            {key: 'x-ms-blob-content-type', value: 'image/jpeg'},*!/
       {key: 'Content-Type', value: 'application/octet-stream'}
     ];
 
@@ -87,14 +88,14 @@ export class AppComponent implements OnInit, AfterViewInit {
         headers: head
       }
     };
-  }
+  }*/
 
   public get files(): File[] {
     return [new File([], 'test.jpg')];
   }
 
   ngOnInit(): void {
-    const link = 'http://localhost:3333/api/uploadBuffer';
+/*    const link = 'http://localhost:3333/api/uploadBuffer';
 
     const oReq = new XMLHttpRequest();
     oReq.open('POST', link, true);
@@ -104,7 +105,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     const  blob = new Blob(['abc123'], {type: 'application/octet-stream'});
 
-    oReq.send(blob);
+    oReq.send(blob);*/
   }
 
   ngAfterViewInit(): void {

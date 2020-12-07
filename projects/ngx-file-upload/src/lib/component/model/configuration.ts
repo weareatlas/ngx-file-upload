@@ -3,8 +3,7 @@ import { IRequestOption } from './request-option';
 
 export class Configuration implements IConfiguration {
     allowedContentTypes?: string[];
-    allowMultiple?: boolean = false;
-    maxFileCount?: number;
+    allowMultiple = false;
     maxFileSize?: number;
     request: IRequestOption;
     dropZoneClass: string ;

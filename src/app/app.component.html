@@ -1,20 +1,21 @@
-<!--<ngx-multifile-upload
-    uploadText="Drag & Drop files or click to upload."
-    [files]="files"
-    [configuration]="configuration"
-    (uploaded)="onUploaded($event)"
-    (deleted)="onDeleted($event)"
-    (failed)="onFailed($event)"
-    (clicked)="onClicked($event)"></ngx-multifile-upload>-->
-<router-outlet></router-outlet>
-
-
-<ngx-multifile-upload
+<!--
+<ngx-file-upload
   uploadText="Drag & Drop files or click to upload."
   [files]="files"
-  [configuration]="configuration1"
+  [configuration]="configuration"
   (uploaded)="onUploaded($event)"
   (deleted)="onDeleted($event)"
   (failed)="onFailed($event)"
-  (clicked)="onClicked($event)"></ngx-multifile-upload>
+  (clicked)="onClicked($event)"></ngx-file-upload>
 <router-outlet></router-outlet>
+-->
+
+<ngx-file-upload
+  uploadText="Drag & Drop files or click to upload."
+  [configuration]="configuration"
+  (uploaded)="onUploaded($event)"
+  (deleted)="onDeleted($event)"
+  (failed)="onFailed($event)"
+  (clicked)="onClicked($event)"></ngx-file-upload>
+<router-outlet></router-outlet>
+

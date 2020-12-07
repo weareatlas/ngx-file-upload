@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgxMultifileUploadModule} from 'projects/ngx-multifile-upload/src/lib/ngx-multifile-upload.module';
+import {NgxFileUploadModule} from 'projects/ngx-file-upload/src/lib/ngx-file-upload.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import {NgxMultifileUploadModule} from 'projects/ngx-multifile-upload/src/lib/ng
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-    NgxMultifileUploadModule
+    NgxFileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]

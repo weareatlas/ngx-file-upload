@@ -8,7 +8,7 @@ export interface IConfiguration {
     // Allow multiple files
     allowMultiple?: boolean;
 
-    // Maximum file sizs (MB)
+    // Maximum file sizes (MB)
     maxFileSize?: number;
 
     // Endpoint to upload the file
