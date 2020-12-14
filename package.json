@@ -1,10 +1,11 @@
 {
-  "name": "ngx-file-upload",
+  "name": "ngx-file-upload-test",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:lib": "ng build ngx-file-upload",
     "test": "ng test",
     "build:prod": "ng build --prod",
     "lint": "ng lint",
@@ -31,11 +32,11 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.17",
     "@angular-devkit/build-ng-packagr": "~0.803.20",
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "@angular/cli": "~8.3.17",
+    "@angular/cli": "^8.3.29",
     "@angular/compiler-cli": "~8.2.13",
     "@angular/language-service": "~8.2.13",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
