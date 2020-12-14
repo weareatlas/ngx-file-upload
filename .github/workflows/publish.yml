@@ -34,7 +34,8 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - name: publish
-        run: npm publish
+        run: npm publish --access public
+        continue-on-error: true
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
   publish-gpr:
@@ -51,5 +52,6 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - name: publish
         run: npm publish
+        continue-on-error: true
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
