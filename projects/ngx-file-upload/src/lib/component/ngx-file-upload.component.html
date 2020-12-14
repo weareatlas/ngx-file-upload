@@ -1,6 +1,6 @@
-<div #taskFileUploadParentContainer class="default-drop-zone">
+<div fxLayout="column" #taskFileUploadParentContainer class="default-drop-zone">
+  <input type="file" #taskFileInput style="display:none" >
   <div fxLayout="row" fxLayoutAlign="center center">
-    <input type="file" #taskFileInput style="display: none;">
     <div *ngIf="!uploadStarted" id="task-file-upload-dropzone" fxLayout="column" fxLayoutAlign="center center">
       <div>
         <mat-icon>cloud_upload</mat-icon>
@@ -10,6 +10,7 @@
   </div>
   <div fxFill *ngIf="fileUploads != null;">
     <div fxFill fxLayout="column" *ngFor="let fileUpload of fileUploads;">
+      <!-- Completed, Failed -->
       <div fxFill fxLayout="column" *ngIf="(fileUpload.progress.state === 3 || fileUpload.progress.state === 4) && !fileUpload.isDeleted">
         <div fxFill fxLayout="row">
           <p class="file" (click)="click(fileUpload, $event)" fxFlex *ngIf="!fileUpload.error">{{fileUpload.file.name}}</p>
@@ -20,11 +21,14 @@
         </div>
         <div *ngIf="fileUpload.error" class="error">{{fileUpload.error.message}}</div>
       </div>
+      <!-- InProgress -->
       <div *ngIf="fileUpload.progress.state === 2">
         <p>{{fileUpload.file.name}} {{fileUpload.progress.formattedValue}}</p>
         <mat-progress-bar class="app-progress" mode="determinate" [value]="fileUpload.progress.percent"></mat-progress-bar>
         <p *ngIf="!fileUpload.error">{{fileUpload.response.body}}</p>
       </div>
+
+      <!-- Exists -->
       <div fxFill fxLayout="column" *ngIf="fileUpload.progress.state === 6 && !fileUpload.isDeleted">
         <div fxFill fxLayout="row">
           <p class="file" (click)="click(fileUpload, $event)" fxFlex>{{fileUpload.file.name}}</p>

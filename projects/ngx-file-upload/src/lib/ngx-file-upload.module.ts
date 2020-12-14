@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {NgxMultifileUploadComponent} from './component/task-file-upload/ngx-multifile-upload.component';
+import {NgxFileUploadComponent} from './component/ngx-file-upload.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {CommonModule} from '@angular/common';
@@ -12,7 +12,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
-    NgxMultifileUploadComponent
+    NgxFileUploadComponent
   ],
   imports: [
     CommonModule,
@@ -26,8 +26,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     FlexLayoutModule
   ],
   exports: [
-    NgxMultifileUploadComponent
+    NgxFileUploadComponent
   ]
 })
-export class NgxMultifileUploadModule {
+export class NgxFileUploadModule {
 }
