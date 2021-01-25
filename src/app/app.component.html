@@ -12,6 +12,7 @@
 
 <ngx-file-upload
   uploadText="Drag & Drop files or click to upload."
+  [files]="files"
   [configuration]="configuration"
   (uploaded)="onUploaded($event)"
   (deleted)="onDeleted($event)"
@@ -19,3 +20,4 @@
   (clicked)="onClicked($event)"></ngx-file-upload>
 <router-outlet></router-outlet>
 
+<button (click)="reset()">Reset</button>
