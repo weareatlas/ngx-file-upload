@@ -110,7 +110,6 @@ export class ConfigurationReaderService implements OnDestroy  {
             params.forEach((param) => {
                 if (param.value != null) {
                     objParms[param.key] = param.value;
-                    console.log(param.value);
                 }
             });
             return objParms;
