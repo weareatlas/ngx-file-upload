@@ -3,14 +3,16 @@
 }
 
 .title {
-    font-style: italic;
     font-weight: 700;
     margin: 5px 5px;
+    font-size: 14px;
 }
 
 .default-drop-zone {
-    padding: 5px;
-    background-color: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-color: #c1c1c1;
+    border-style: dashed;
+    border-radius: 15px;
     opacity: 0.5;
     cursor: pointer;
 }
@@ -28,4 +30,11 @@
     border: none;
     opacity: 0.9;
 
+}
+
+.upload-icon {
+    color: #c9cfde;
+    width: 50px;
+    height: 33px;
+    font-size: 35px;
 }
